@@ -10,7 +10,7 @@ public class Zombie : MonoBehaviour
 	[HideInInspector]
 	public NavMeshAgent nma;
 
-	void Start()
+	void Awake()
 	{
 		nma = GetComponent<NavMeshAgent>();
 	}
