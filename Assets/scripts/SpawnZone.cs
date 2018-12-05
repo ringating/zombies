@@ -23,8 +23,8 @@ public class SpawnZone : MonoBehaviour
 		this.zoneIndex = index;
 	}
 
-	public void SetAdjZones(int[] zones)
+	public void SetAdjZones(int[] adjacentZoneIndeces)
 	{
-		this.adjZones = zones;
+		this.adjZones = adjacentZoneIndeces;
 	}
 }
