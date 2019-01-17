@@ -5,26 +5,17 @@ using UnityEngine;
 public class SpawnZone : MonoBehaviour 
 {
 	public Transform[] spawnPoints;
-	public SpawnZone[] adjacentZones;
 	
-	[SerializeField]
-	private int zoneIndex;
-	[SerializeField]
-	private int[] adjZones;
-	
-	void OnCollisionEnter2D(Collision2D col)
+	void OnTriggerEnter(Collider col)
 	{
-		LevelManager.Instance.activeZone = this.zoneIndex;
-		LevelManager.Instance.adjacentZones = this.adjZones;
+		if(col.GetComponent<PlayerState>())
+        {
+            this.setActiveSpawns();
+        }
 	}
 
-	public void SetZoneIndex(int index)
-	{
-		this.zoneIndex = index;
-	}
-
-	public void SetAdjZones(int[] adjacentZoneIndeces)
-	{
-		this.adjZones = adjacentZoneIndeces;
-	}
+    public void setActiveSpawns()
+    {
+        LevelManager.Instance.activeSpawns = this.spawnPoints;
+    }
 }

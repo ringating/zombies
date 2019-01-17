@@ -7,6 +7,7 @@ public class CursorNavMeshTarget : MonoBehaviour
 {
 	public NavMeshAgent[] nmAgents;
 	public Camera cam;
+    private Object[] nmaObjs;
 	
 	void Update () 
 	{

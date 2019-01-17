@@ -7,14 +7,19 @@ public class LevelManager : MonoBehaviour
 {
 	// this class handles spawning, zones, counting zombie kills
 
-	public const int MAXZOMBIES = 20;
-	[HideInInspector]
-	public Zombie[] zombs = new Zombie[MAXZOMBIES];
+    public Transform player;
+    public GameObject zombiePrefab;
+	public const int MAXZOMBIES = 24;
+	//[HideInInspector]
+	public List<Zombie> zombs;
 
 	// zone and spawn stuff
-	public SpawnZone[] spawnZones;
-	public int activeZone;
-	public int[] adjacentZones;
+    public float spawnDelay = 0.05f;
+    private float timeSinceLastSpawn = 0;
+    private int lastSpawnIndex = -1;
+	public SpawnZone[] spawnZones; // this might not be needed for anything
+    public SpawnZone startingZone;
+    public Transform[] activeSpawns;
 
 	// allow this object to be globally accessible
 	private static LevelManager _instance;
@@ -36,30 +41,66 @@ public class LevelManager : MonoBehaviour
 
 	void Start () 
 	{
-		UnityEngine.Object[] sz = FindObjectsOfType(typeof(SpawnZone));
-
+		zombs = new List<Zombie>();
+        UnityEngine.Object[] sz = FindObjectsOfType(typeof(SpawnZone));
+        if(sz.Length < 1){ Debug.LogWarning("Scene has no SpawnZone objects!"); }
 		spawnZones = new SpawnZone[sz.Length];
+		for(int i = 0; i < sz.Length; i++){ spawnZones[i] = (SpawnZone)sz[i]; }
 
-		for(int i = 0; i < sz.Length; i++)
-		{
-			spawnZones[i] = (SpawnZone)sz[i];
-		}
-
-		foreach(SpawnZone z in spawnZones)
-		{
-			int[] indecesOfAdjZones = new int[z.adjacentZones.Length];
-			for(int j = 0; j < z.adjacentZones.Length; j++)
-			{
-				// populate temp with the indeces corresponding to the zone's adjacent zones
-				indecesOfAdjZones[j] = Array.IndexOf(spawnZones, z.adjacentZones[j]);
-			}
-			z.SetAdjZones(indecesOfAdjZones);
-			z.SetZoneIndex(Array.IndexOf(spawnZones, z));
-		}
+		if(startingZone)
+        {
+            startingZone.setActiveSpawns();
+        }
 	}
 	
 	void Update () 
 	{
-		
+		// debug "kill all zombies" key
+        if(Input.GetKeyDown("space"))
+        {
+            foreach(Zombie z in zombs)
+            {
+                Destroy(z.gameObject);
+            }
+            zombs.Clear();
+        }
+
+        // update each zombie's destination
+        foreach(Zombie z in zombs)
+        {
+            z.nma.destination = player.position;
+        }
+
+        // spawn another zombie if necessary
+        timeSinceLastSpawn += Time.deltaTime;
+        if(timeSinceLastSpawn >= spawnDelay && zombs.Count < MAXZOMBIES)
+        {
+            timeSinceLastSpawn = 0;
+            SpawnZomb();
+        }
 	}
+
+    private bool SpawnZomb()
+    {
+        if(zombs.Count < MAXZOMBIES)
+        {
+            Zombie newZomb = Instantiate(zombiePrefab, activeSpawns[NextSpawnIndex()]).GetComponent<Zombie>();
+            zombs.Add(newZomb);
+            return true;
+        }
+        else{ return false; }
+    }
+
+    private int NextSpawnIndex()
+    {
+        if(lastSpawnIndex < 0 || lastSpawnIndex >= activeSpawns.Length-1)
+        {
+            lastSpawnIndex = 0;
+        }
+        else
+        {
+            ++lastSpawnIndex;
+        }
+        return lastSpawnIndex;
+    }
 }
