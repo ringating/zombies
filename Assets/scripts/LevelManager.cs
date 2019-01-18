@@ -84,7 +84,8 @@ public class LevelManager : MonoBehaviour
     {
         if(zombs.Count < MAXZOMBIES)
         {
-            Zombie newZomb = Instantiate(zombiePrefab, activeSpawns[NextSpawnIndex()]).GetComponent<Zombie>();
+            int spawnIndex = NextSpawnIndex();
+            Zombie newZomb = Instantiate(zombiePrefab, activeSpawns[spawnIndex].position, activeSpawns[spawnIndex].rotation).GetComponent<Zombie>();
             zombs.Add(newZomb);
             return true;
         }
