@@ -18,4 +18,10 @@ public static class Tools
 	{
 		return new Vector2(v3.x, v3.z);
 	}
+
+    // maps a value from an input range to an output range
+    public static float Map(float val, float inMin, float inMax, float outMin, float outMax)
+	{
+		return Mathf.Lerp(outMin, outMax, Mathf.InverseLerp(inMin, inMax, val));
+	}
 }
