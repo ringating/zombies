@@ -121,10 +121,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 150761129}
+  - component: {fileID: 150761125}
   - component: {fileID: 150761128}
   - component: {fileID: 150761127}
   - component: {fileID: 150761126}
-  - component: {fileID: 150761125}
   - component: {fileID: 150761124}
   - component: {fileID: 150761130}
   m_Layer: 0
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 150761123}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cea34f13d0ab22440ac77f8d07b68ea2, type: 3}
   m_Name: 
@@ -160,9 +160,11 @@ MonoBehaviour:
   maxHealth: 100
   healthRegenRate: 50
   healthRegenDelay: 3
-  moveSpeed: 0
-  sprintSpeed: 0
+  walkSpeed: 6
+  runSpeed: 10
   acceleration: 0
+  axes: {fileID: 2102670821}
+  rigid: {fileID: 150761130}
 --- !u!65 &150761126
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -242,7 +244,7 @@ Rigidbody:
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 1
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!1 &213440191
@@ -1545,6 +1547,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2102670820}
   - component: {fileID: 2102670819}
+  - component: {fileID: 2102670821}
   m_Layer: 0
   m_Name: level manager
   m_TagString: Untagged
@@ -1584,3 +1587,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2102670821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2102670818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb21fb42c985e274fabcf62d5c2118af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deadZoneInner: 0.15
+  deadZoneOuter: 0.975
+  leftAxis: {x: 0, y: 0}
+  rightAxis: {x: 0, y: 0}

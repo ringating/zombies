@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class AxisHandler : MonoBehaviour
 {
-	private float deadZoneInner = 0.15f;
-	private float deadZoneOuter = 0.975f;
+	public float deadZoneInner = 0.15f;
+	public float deadZoneOuter = 0.975f;
 
-	public Vector2 axisL;
-	public Vector2 axisR;
+	public Vector2 leftAxis;
+	public Vector2 rightAxis;
 
 	void Update()
 	{
@@ -17,8 +17,8 @@ public class AxisHandler : MonoBehaviour
 
 	private void ResetAxes()
 	{
-		axisL = Vector2.zero;
-		axisR = Vector2.zero;
+		leftAxis = Vector2.zero;
+		rightAxis = Vector2.zero;
 	}
 
 	private void UpdateAxes()
@@ -27,13 +27,13 @@ public class AxisHandler : MonoBehaviour
 		ResetAxes();
 
 		// update left stick axis with raw input
-		axisL.Set(Input.GetAxisRaw("left stick x"), Input.GetAxisRaw("left stick y"));
+		leftAxis.Set(Input.GetAxisRaw("left stick x"), Input.GetAxisRaw("left stick y"));
 		// filter the left stick input
-		axisL = axisL.normalized * Tools.Map(axisL.magnitude, deadZoneInner, deadZoneOuter, 0, 1);
+		leftAxis = leftAxis.normalized * Tools.Map(leftAxis.magnitude, deadZoneInner, deadZoneOuter, 0, 1);
 
 		// update right stick axis with raw input
-		axisR.Set(Input.GetAxisRaw("right stick x"), Input.GetAxisRaw("right stick y"));
+		rightAxis.Set(Input.GetAxisRaw("right stick x"), Input.GetAxisRaw("right stick y"));
 		// filter the right stick input
-		axisR = axisR.normalized * Tools.Map(axisR.magnitude, deadZoneInner, deadZoneOuter, 0, 1);
+		rightAxis = rightAxis.normalized * Tools.Map(rightAxis.magnitude, deadZoneInner, deadZoneOuter, 0, 1);
 	}
 }
