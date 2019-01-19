@@ -162,7 +162,7 @@ MonoBehaviour:
   healthRegenDelay: 3
   walkSpeed: 6
   runSpeed: 10
-  acceleration: 1
+  acceleration: 0.5
   axes: {fileID: 2102670821}
   rigid: {fileID: 150761130}
   vel: {x: 0, y: 0}
