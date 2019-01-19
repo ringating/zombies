@@ -9,7 +9,7 @@ public class LevelManager : MonoBehaviour
 
     public Transform player;
     public GameObject zombiePrefab;
-	public const int MAXZOMBIES = 24;
+	public int maxZombies = 24;
 	//[HideInInspector]
 	public List<Zombie> zombs;
 
@@ -73,7 +73,7 @@ public class LevelManager : MonoBehaviour
 
         // spawn another zombie if necessary
         timeSinceLastSpawn += Time.deltaTime;
-        if(timeSinceLastSpawn >= spawnDelay && zombs.Count < MAXZOMBIES)
+        if(timeSinceLastSpawn >= spawnDelay && zombs.Count < maxZombies)
         {
             timeSinceLastSpawn = 0;
             SpawnZomb();
@@ -82,7 +82,7 @@ public class LevelManager : MonoBehaviour
 
     private bool SpawnZomb()
     {
-        if(zombs.Count < MAXZOMBIES)
+        if(zombs.Count < maxZombies)
         {
             int spawnIndex = NextSpawnIndex();
             Zombie newZomb = Instantiate(zombiePrefab, activeSpawns[spawnIndex].position, activeSpawns[spawnIndex].rotation).GetComponent<Zombie>();
