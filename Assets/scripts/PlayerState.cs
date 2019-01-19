@@ -11,28 +11,27 @@ public class PlayerState : MonoBehaviour
 
 	public float walkSpeed;		// idk good defaults for these yet
 	public float runSpeed;
-	public float acceleration;
+	public float acceleration; // in % of walkSpeed per sec
 
     public AxisHandler axes;
     public Rigidbody rigid;
 
 	// variables
 	private float health;
-	private float speed;	// maybe unnecessary
-	private Vector2 vel;
+	public Vector2 vel;
+    public Vector2 targetVel;
     private float timeSinceHit;
 
 
-	void Start () 
+	void Start() 
 	{
 		// set starting values for variables
         timeSinceHit = healthRegenDelay;
 		health = maxHealth;
-		speed = 0f;
 		vel = Vector2.zero;
 	}
 	
-	void Update () 
+	void Update()
 	{
 		// health regen
         timeSinceHit += Time.deltaTime;
@@ -43,7 +42,27 @@ public class PlayerState : MonoBehaviour
         }
 
         // movement
-        vel = axes.leftAxis * walkSpeed * Time.deltaTime;
-        rigid.position += new Vector3(vel.x, 0, vel.y);
+        targetVel = axes.leftAxis * walkSpeed;
+        if(vel.x > targetVel.x)
+        {
+            vel.Set(vel.x-acceleration, vel.y);
+            if(vel.x < targetVel.x){ vel.Set(targetVel.x, vel.y); }
+        }
+        else if(vel.x < targetVel.x)
+        {
+            vel.Set(vel.x+acceleration, vel.y);
+            if(vel.x > targetVel.x){ vel.Set(targetVel.x, vel.y); }
+        }
+        if(vel.y > targetVel.y)
+        {
+            vel.Set(vel.x, vel.y-acceleration);
+            if(vel.y < targetVel.y){ vel.Set(vel.x, targetVel.y); }
+        }
+        else if(vel.y < targetVel.y)
+        {
+            vel.Set(vel.x, vel.y+acceleration);
+            if(vel.y > targetVel.y){ vel.Set(vel.x, targetVel.y); }
+        }
+        rigid.position += new Vector3(vel.x * Time.deltaTime, 0, vel.y * Time.deltaTime);
 	}
 }
