@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerState : MonoBehaviour 
 {
@@ -15,13 +16,13 @@ public class PlayerState : MonoBehaviour
 
     public AxisHandler axes;
     public Rigidbody rigid;
+    public NavMeshAgent nma;
 
 	// variables
 	private float health;
-	public Vector2 vel;
-    public Vector2 targetVel;
     private float timeSinceHit;
-
+	private Vector2 vel;
+    private Vector2 targetVel;
 
 	void Start() 
 	{
@@ -42,7 +43,14 @@ public class PlayerState : MonoBehaviour
         }
 
         // movement
-        targetVel = axes.leftAxis * walkSpeed;
+        if(Input.GetButton("sprint"))
+        {
+            targetVel = axes.leftAxis * runSpeed;
+        }
+        else
+        {
+            targetVel = axes.leftAxis * walkSpeed;
+        }
         if(vel.x > targetVel.x)
         {
             vel.Set(vel.x-acceleration, vel.y);
@@ -63,6 +71,7 @@ public class PlayerState : MonoBehaviour
             vel.Set(vel.x, vel.y+acceleration);
             if(vel.y > targetVel.y){ vel.Set(vel.x, targetVel.y); }
         }
-        rigid.position += new Vector3(vel.x * Time.deltaTime, 0, vel.y * Time.deltaTime);
+        //rigid.position += new Vector3(vel.x * Time.deltaTime, 0, vel.y * Time.deltaTime);
+        nma.velocity = new Vector3(vel.x, 0, vel.y);
 	}
 }

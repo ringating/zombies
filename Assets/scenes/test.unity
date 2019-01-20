@@ -99,7 +99,7 @@ NavMeshSettings:
     serializedVersion: 2
     agentTypeID: 0
     agentRadius: 0.5
-    agentHeight: 2
+    agentHeight: 1
     agentSlope: 0
     agentClimb: 0
     ledgeDropHeight: 0
@@ -122,11 +122,11 @@ GameObject:
   m_Component:
   - component: {fileID: 150761129}
   - component: {fileID: 150761125}
+  - component: {fileID: 150761124}
   - component: {fileID: 150761128}
   - component: {fileID: 150761127}
-  - component: {fileID: 150761126}
-  - component: {fileID: 150761124}
   - component: {fileID: 150761130}
+  - component: {fileID: 150761126}
   m_Layer: 0
   m_Name: Test Player
   m_TagString: Untagged
@@ -134,18 +134,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &150761124
-MonoBehaviour:
+--- !u!195 &150761124
+NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 150761123}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cea34f13d0ab22440ac77f8d07b68ea2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 1540223999}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 0
+  m_Acceleration: 0
+  avoidancePriority: 50
+  m_AngularSpeed: 0
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 0
+  m_AutoBraking: 0
+  m_AutoRepath: 0
+  m_Height: 1
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 0
 --- !u!114 &150761125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,15 +169,14 @@ MonoBehaviour:
   maxHealth: 100
   healthRegenRate: 50
   healthRegenDelay: 3
-  walkSpeed: 6
-  runSpeed: 10
+  walkSpeed: 4
+  runSpeed: 8
   acceleration: 0.5
   axes: {fileID: 2102670821}
   rigid: {fileID: 150761130}
-  vel: {x: 0, y: 0}
-  targetVel: {x: 0, y: 0}
---- !u!65 &150761126
-BoxCollider:
+  nma: {fileID: 150761124}
+--- !u!136 &150761126
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -176,8 +184,9 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &150761127
 MeshRenderer:
@@ -228,7 +237,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 150761123}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.480781, y: 0.5, z: 2.4765015}
+  m_LocalPosition: {x: 6.081, y: 0.5, z: 4.054}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1571,6 +1580,7 @@ MonoBehaviour:
   player: {fileID: 150761129}
   zombiePrefab: {fileID: 1709824328573874, guid: c342cc1336ed6dc49be414d4026d4c92,
     type: 2}
+  maxZombies: 24
   zombs: []
   spawnDelay: 0.1
   spawnZones: []
