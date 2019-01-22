@@ -24,8 +24,12 @@ public class Zombie : MonoBehaviour
     private float timeSinceRandomRun;
     private float randomRunCooldown;
 
+    public bool testDie;
+
     void Start()
     {
+        testDie = false;
+
         closeZombies = new List<Zombie>();
         randomRunTimer = -1; 
         randomRunCooldown = minRandomRunCooldown + (Random.value * (maxRandomRunCooldown - minRandomRunCooldown));
@@ -38,7 +42,15 @@ public class Zombie : MonoBehaviour
             Vector3 avgZombPos = Vector3.zero;
             for(int i = 0; i < closeZombies.Count; ++i)
             {
-                avgZombPos += closeZombies[i].transform.position;
+                if(closeZombies[i])
+                {
+                    avgZombPos += closeZombies[i].transform.position;
+                }
+                else
+                {
+                    closeZombies.RemoveAt(i);
+                    --i;
+                }
             }
             avgZombPos = avgZombPos / closeZombies.Count;
             
@@ -75,6 +87,8 @@ public class Zombie : MonoBehaviour
         {
             timeSinceRandomRun += Time.deltaTime;
         }
+
+        if(testDie){testDie=false;this.Die();}
     }
 
     void Die()

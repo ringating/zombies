@@ -153,7 +153,7 @@ NavMeshAgent:
   m_AutoRepath: 0
   m_Height: 1
   m_BaseOffset: 0.5
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 1
   m_ObstacleAvoidanceType: 0
 --- !u!114 &150761125
 MonoBehaviour:
@@ -169,8 +169,8 @@ MonoBehaviour:
   maxHealth: 100
   healthRegenRate: 50
   healthRegenDelay: 3
-  walkSpeed: 4
-  runSpeed: 8
+  walkSpeed: 6
+  runSpeed: 10
   acceleration: 0.5
   axes: {fileID: 2102670821}
   rigid: {fileID: 150761130}
@@ -1614,3 +1614,5 @@ MonoBehaviour:
   deadZoneOuter: 0.975
   leftAxis: {x: 0, y: 0}
   rightAxis: {x: 0, y: 0}
+  kbmOrigin: {fileID: 150761129}
+  kbmMouse: {fileID: 1540223999}

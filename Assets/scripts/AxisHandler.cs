@@ -10,6 +10,9 @@ public class AxisHandler : MonoBehaviour
 	public Vector2 leftAxis;
 	public Vector2 rightAxis;
 
+    public Transform kbmOrigin;
+    public Transform kbmMouse;
+
 	void Update()
 	{
 		UpdateAxes();
@@ -35,5 +38,12 @@ public class AxisHandler : MonoBehaviour
 		rightAxis.Set(Input.GetAxisRaw("right stick x"), Input.GetAxisRaw("right stick y"));
 		// filter the right stick input
 		rightAxis = rightAxis.normalized * Tools.Map(rightAxis.magnitude, deadZoneInner, deadZoneOuter, 0, 1);
+
+        // mouse and keyboard overwrite
+        if(Input.GetButton("kbWalk"))
+        {
+            Vector3 temp = (kbmMouse.position - kbmOrigin.position).normalized;
+            leftAxis = new Vector2(temp.x, temp.z);
+        }
 	}
 }
