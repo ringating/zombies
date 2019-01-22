@@ -91,7 +91,10 @@ public class Zombie : MonoBehaviour
 
     public void Die()
     {
-        LevelManager.Instance.zombs.Remove(this);
+        if(LevelManager.Instance)
+        {
+            LevelManager.Instance.zombs.Remove(this);
+        }
         Destroy(dcz.gameObject);
         Destroy(physicalCollider);
         Destroy(this.gameObject);
