@@ -9,7 +9,8 @@ public class LevelManager : MonoBehaviour
 
     public Transform player;
     public GameObject zombiePrefab;
-	public int maxZombies = 24;
+	public int maxZombies = 24;     // max zombies alive at once
+    public int totalZombies = 120;  // total zombies for the entire level (not counting the final wave)
 	//[HideInInspector]
 	public List<Zombie> zombs;
 
@@ -58,11 +59,10 @@ public class LevelManager : MonoBehaviour
 		// debug "kill all zombies" key
         if(Input.GetKeyDown("space"))
         {
-            foreach(Zombie z in zombs)
+            while(zombs.Count > 0)
             {
-                Destroy(z.gameObject);
+                zombs[0].Die();
             }
-            zombs.Clear();
         }
 
         // update each zombie's destination

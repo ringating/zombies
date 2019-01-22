@@ -12,7 +12,6 @@ public class Zombie : MonoBehaviour
     public GameObject physicalCollider;
     public List<Zombie> closeZombies;
     public int maxCloseZombies;
-    //public float avoidanceStrength;
 
     public float minRandomRunTime;
     public float maxRandomRunTime;
@@ -24,11 +23,11 @@ public class Zombie : MonoBehaviour
     private float timeSinceRandomRun;
     private float randomRunCooldown;
 
-    public bool testDie;
+    //public bool testDie;
 
     void Start()
     {
-        testDie = false;
+        //testDie = false;
 
         closeZombies = new List<Zombie>();
         randomRunTimer = -1; 
@@ -54,7 +53,6 @@ public class Zombie : MonoBehaviour
             }
             avgZombPos = avgZombPos / closeZombies.Count;
             
-            //nma.velocity = ((nma.desiredVelocity + (transform.position - avgZombPos)).normalized * avoidanceStrength).normalized * nma.desiredVelocity.magnitude;
             if(randomRunTimer < 0 && timeSinceRandomRun > randomRunCooldown)
             {
                 randomRunTime = minRandomRunTime + (Random.value * (maxRandomRunTime - minRandomRunTime));
@@ -88,10 +86,10 @@ public class Zombie : MonoBehaviour
             timeSinceRandomRun += Time.deltaTime;
         }
 
-        if(testDie){testDie=false;this.Die();}
+        //if(testDie){testDie=false;this.Die();}
     }
 
-    void Die()
+    public void Die()
     {
         LevelManager.Instance.zombs.Remove(this);
         Destroy(dcz.gameObject);
