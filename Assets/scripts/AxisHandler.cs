@@ -42,8 +42,9 @@ public class AxisHandler : MonoBehaviour
         // mouse and keyboard overwrite
         if(Input.GetButton("kbWalk"))
         {
-            Vector3 temp = (kbmMouse.position - kbmOrigin.position).normalized;
+            Vector3 temp = (kbmMouse.position - kbmOrigin.position);
             leftAxis = new Vector2(temp.x, temp.z);
+			leftAxis.Normalize();
         }
 	}
 }

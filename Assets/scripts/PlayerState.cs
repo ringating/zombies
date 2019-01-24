@@ -51,6 +51,7 @@ public class PlayerState : MonoBehaviour
         {
             targetVel = axes.leftAxis * walkSpeed;
         }
+
         if(vel.x > targetVel.x)
         {
             vel.Set(vel.x-acceleration, vel.y);
@@ -61,6 +62,7 @@ public class PlayerState : MonoBehaviour
             vel.Set(vel.x+acceleration, vel.y);
             if(vel.x > targetVel.x){ vel.Set(targetVel.x, vel.y); }
         }
+
         if(vel.y > targetVel.y)
         {
             vel.Set(vel.x, vel.y-acceleration);
@@ -71,8 +73,9 @@ public class PlayerState : MonoBehaviour
             vel.Set(vel.x, vel.y+acceleration);
             if(vel.y > targetVel.y){ vel.Set(vel.x, targetVel.y); }
         }
+
         //rb.position += new Vector3(vel.x * Time.deltaTime, 0, vel.y * Time.deltaTime);
-        //nma.velocity = new Vector3(vel.x, 0, vel.y);
-        rb.velocity = new Vector3(vel.x, 0, vel.y);
+        nma.velocity = new Vector3(vel.x, 0, vel.y);
+        //rb.velocity = new Vector3(vel.x, 0, vel.y);
 	}
 }
