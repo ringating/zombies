@@ -9,8 +9,9 @@ public class LevelManager : MonoBehaviour
 
     public Transform player;
     public GameObject zombiePrefab;
-	public int maxZombies = 24;     // max zombies alive at once
+	public int maxConcurrentZombies = 24;     // max zombies alive at once
     public int totalZombies = 120;  // total zombies for the entire level (not counting the final wave)
+    public int killedZombies;
 	//[HideInInspector]
 	public List<Zombie> zombs;
 
@@ -42,7 +43,8 @@ public class LevelManager : MonoBehaviour
 
 	void Start () 
 	{
-		zombs = new List<Zombie>();
+		killedZombies = 0;
+        zombs = new List<Zombie>();
         UnityEngine.Object[] sz = FindObjectsOfType(typeof(SpawnZone));
         if(sz.Length < 1){ Debug.LogWarning("Scene has no SpawnZone objects!"); }
 		spawnZones = new SpawnZone[sz.Length];
@@ -73,7 +75,7 @@ public class LevelManager : MonoBehaviour
 
         // spawn another zombie if necessary
         timeSinceLastSpawn += Time.deltaTime;
-        if(timeSinceLastSpawn >= spawnDelay && zombs.Count < maxZombies)
+        if(timeSinceLastSpawn >= spawnDelay && zombs.Count < maxConcurrentZombies)
         {
             timeSinceLastSpawn = 0;
             SpawnZomb();
@@ -82,7 +84,7 @@ public class LevelManager : MonoBehaviour
 
     private bool SpawnZomb()
     {
-        if(zombs.Count < maxZombies)
+        if(zombs.Count < maxConcurrentZombies && killedZombies + zombs.Count < totalZombies)
         {
             int spawnIndex = NextSpawnIndex();
             Zombie newZomb = Instantiate(zombiePrefab, activeSpawns[spawnIndex].position, activeSpawns[spawnIndex].rotation).GetComponent<Zombie>();

@@ -94,6 +94,7 @@ public class Zombie : MonoBehaviour
         if(LevelManager.Instance)
         {
             LevelManager.Instance.zombs.Remove(this);
+            LevelManager.Instance.killedZombies ++;
         }
         Destroy(dcz.gameObject);
         Destroy(physicalCollider);
