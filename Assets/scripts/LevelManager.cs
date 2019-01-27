@@ -41,7 +41,7 @@ public class LevelManager : MonoBehaviour
 		}
     }
 
-	void Start () 
+	void Start()
 	{
 		killedZombies = 0;
         zombs = new List<Zombie>();
@@ -56,7 +56,7 @@ public class LevelManager : MonoBehaviour
         }
 	}
 	
-	void Update () 
+	void Update()
 	{
 		// debug "kill all zombies" key
         if(Input.GetKeyDown("space"))
