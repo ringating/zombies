@@ -237,8 +237,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1072e2e443146b944aff16a3769559ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fastSpeed: 4
+  slowSpeed: 2
+  playerIsClose: 0
+  closePlayer: {fileID: 0}
   hitTimer: 0
-  timeToHit: 0
+  timeToHit: 1
+  attackPower: 49
   nma: {fileID: 195217496316439778}
   dcz: {fileID: 114826488023373230}
   physicalCollider: {fileID: 1309397756190212}

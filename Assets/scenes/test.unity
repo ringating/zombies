@@ -172,9 +172,12 @@ MonoBehaviour:
   walkSpeed: 6
   runSpeed: 10
   acceleration: 0.5
+  slowScalar: 0.75
   axes: {fileID: 2102670821}
   rb: {fileID: 150761130}
   nma: {fileID: 150761124}
+  health: 0
+  closeZombieCount: 0
 --- !u!136 &150761126
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1723,8 +1726,9 @@ MonoBehaviour:
   player: {fileID: 150761129}
   zombiePrefab: {fileID: 1709824328573874, guid: c342cc1336ed6dc49be414d4026d4c92,
     type: 2}
-  maxZombies: 24
+  maxConcurrentZombies: 24
   totalZombies: 120
+  killedZombies: 0
   zombs: []
   spawnDelay: 0.1
   spawnZones: []

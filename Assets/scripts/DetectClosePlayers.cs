@@ -10,7 +10,10 @@ public class DetectClosePlayers : MonoBehaviour
     {
         if(other.transform == LevelManager.Instance.player)
         {
-            print("player detected");
+            //print("player detected");
+            self.playerIsClose = true;
+            self.closePlayer = other.GetComponent<PlayerState>();
+            self.closePlayer.closeZombieCount++;
         }
         
     }
@@ -19,7 +22,10 @@ public class DetectClosePlayers : MonoBehaviour
     {
         if(other.transform == LevelManager.Instance.player)
         {
-            print("player escaped");
+            //print("player escaped");
+            self.playerIsClose = false;
+            self.closePlayer = null;
+            other.GetComponent<PlayerState>().closeZombieCount--;
         }
     }
 }

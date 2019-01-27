@@ -5,11 +5,21 @@ using UnityEngine.AI;
 
 public class Zombie : MonoBehaviour
 {
-	public float hitTimer;
+	public float fastSpeed = 4;
+    public float slowSpeed = 2;
+    
+    [HideInInspector]
+    public bool playerIsClose;
+    [HideInInspector]
+    public PlayerState closePlayer;
+    [HideInInspector]
+    public float hitTimer;
 	public float timeToHit;
+    public float attackPower = 10;
 	public NavMeshAgent nma;
     public DetectCloseZombies dcz;
     public GameObject physicalCollider;
+    [HideInInspector]
     public List<Zombie> closeZombies;
     public int maxCloseZombies;
 
@@ -17,6 +27,7 @@ public class Zombie : MonoBehaviour
     public float maxRandomRunTime;
     public float minRandomRunCooldown;
     public float maxRandomRunCooldown;
+    
     private float randomRunTime;
     private float randomRunTimer;
     private Vector3 randomVel;
@@ -32,10 +43,38 @@ public class Zombie : MonoBehaviour
         closeZombies = new List<Zombie>();
         randomRunTimer = -1; 
         randomRunCooldown = minRandomRunCooldown + (Random.value * (maxRandomRunCooldown - minRandomRunCooldown));
+        hitTimer = 0;
+        closePlayer = null;
     }
 
     void Update()
     {
+        if(playerIsClose)
+        {
+            nma.speed = slowSpeed;
+
+            hitTimer += Time.deltaTime;
+            if(hitTimer > timeToHit)
+            {
+                closePlayer.Damage(attackPower);
+                hitTimer = 0;
+            }
+        }
+        else
+        {
+            nma.speed = fastSpeed;
+
+            if(hitTimer > 0)
+            {
+                hitTimer -= Time.deltaTime;
+            }
+
+            if(hitTimer < 0)
+            { 
+                hitTimer = 0; 
+            }
+        }
+        
         if(closeZombies.Count > maxCloseZombies)
         {
             Vector3 avgZombPos = Vector3.zero;
@@ -94,7 +133,7 @@ public class Zombie : MonoBehaviour
         if(LevelManager.Instance)
         {
             LevelManager.Instance.zombs.Remove(this);
-            LevelManager.Instance.killedZombies ++;
+            LevelManager.Instance.killedZombies++;
         }
         Destroy(dcz.gameObject);
         Destroy(physicalCollider);

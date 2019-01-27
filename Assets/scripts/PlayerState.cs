@@ -13,16 +13,20 @@ public class PlayerState : MonoBehaviour
 	public float walkSpeed;		// idk good defaults for these yet
 	public float runSpeed;
 	public float acceleration; // in % of walkSpeed per sec
+    public float slowScalar;
 
     public AxisHandler axes;
     public Rigidbody rb;
     public NavMeshAgent nma;
 
 	// variables
-	private float health;
+	public float health;
     private float timeSinceHit;
 	private Vector2 vel;
     private Vector2 targetVel;
+    [HideInInspector]
+    public int closeZombieCount;
+    private float speedScalar;
 
 	void Start() 
 	{
@@ -30,6 +34,8 @@ public class PlayerState : MonoBehaviour
         timeSinceHit = healthRegenDelay;
 		health = maxHealth;
 		vel = Vector2.zero;
+        closeZombieCount = 0;
+        speedScalar = 1;
 	}
 	
 	void Update()
@@ -42,14 +48,24 @@ public class PlayerState : MonoBehaviour
             if(health > maxHealth){ health = maxHealth; }
         }
 
-        // movement
-        if(Input.GetButton("sprint"))
+        // set speed multiplier
+        if(closeZombieCount > 0)
         {
-            targetVel = axes.leftAxis * runSpeed;
+            speedScalar = slowScalar;
         }
         else
         {
-            targetVel = axes.leftAxis * walkSpeed;
+            speedScalar = 1;
+        }
+
+        // movement
+        if(Input.GetButton("sprint"))
+        {
+            targetVel = axes.leftAxis * runSpeed * speedScalar;
+        }
+        else
+        {
+            targetVel = axes.leftAxis * walkSpeed * speedScalar;
         }
 
         if(vel.x > targetVel.x)
@@ -78,4 +94,11 @@ public class PlayerState : MonoBehaviour
         nma.velocity = new Vector3(vel.x, 0, vel.y);
         //rb.velocity = new Vector3(vel.x, 0, vel.y);
 	}
+
+    public void Damage(float hpDamage)
+    {
+        health -= hpDamage;
+        timeSinceHit = 0;
+        print("took " + hpDamage + " points of damage!");
+    }
 }
