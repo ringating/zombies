@@ -96,7 +96,7 @@ public class LevelManager : MonoBehaviour
 
     private int NextSpawnIndex()
     {
-        if(lastSpawnIndex < 0 || lastSpawnIndex >= activeSpawns.Length-1)
+        if(lastSpawnIndex >= activeSpawns.Length-1 || lastSpawnIndex < 0)
         {
             lastSpawnIndex = 0;
         }
