@@ -24,7 +24,7 @@ public class PlayerState : MonoBehaviour
     private float timeSinceHit;
 	private Vector2 vel;
     private Vector2 targetVel;
-    [HideInInspector]
+    //[HideInInspector]
     public int closeZombieCount;
     private float speedScalar;
 

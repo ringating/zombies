@@ -167,12 +167,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  healthRegenRate: 50
+  healthRegenRate: 40
   healthRegenDelay: 3
   walkSpeed: 6
   runSpeed: 10
   acceleration: 0.5
-  slowScalar: 0.75
+  slowScalar: 0.6
   axes: {fileID: 2102670821}
   rb: {fileID: 150761130}
   nma: {fileID: 150761124}
