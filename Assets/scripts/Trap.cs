@@ -10,12 +10,27 @@ public class Trap : MonoBehaviour
 	public float activeTime = 10;
 	public float timeSinceLastActivated;
 
-	public TrapState state;
+	public TrapState state = TrapState.cooldown;
 
 	void Start()
 	{
-		timeSinceLastActivated = 0;
-		state = TrapState.cooldown;
+		switch(state)
+		{
+			case TrapState.on:
+				timeSinceLastActivated = 0;
+				break;
+
+			case TrapState.cooldown:
+				timeSinceLastActivated = activeTime;
+				break;
+			
+			case TrapState.ready:
+				timeSinceLastActivated = activeTime + cooldownTime;
+				break;
+
+			default:
+				break;
+		}
 	}
 	
 	void Update()
@@ -38,9 +53,9 @@ public class Trap : MonoBehaviour
 
 	private void OnTriggerStay(Collider other)
     {
-        if(timeSinceLastActivated < activeTime)
+        if(state == TrapState.on)
 		{
-			Zombie zomb = other.GetComponent<Zombie>();
+			Zombie zomb = other.GetComponent<ZombieCollider>().self;
 			if(zomb){ zomb.Die(); }
 		}
     }
@@ -49,7 +64,7 @@ public class Trap : MonoBehaviour
 	{
 		// returns true upon successful activation
 
-		if(timeSinceLastActivated > activeTime + cooldownTime)
+		if(state == TrapState.ready)
 		{
 			timeSinceLastActivated = 0;
 			return true;
