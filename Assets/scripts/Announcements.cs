@@ -10,9 +10,8 @@ public class Announcements : MonoBehaviour
 
 	private Text[] texts;
 
-	private float[] timeSince = {0f, 0f};
-	private float[] duration = {0f, 0f};
-	private float[] fadeDuration = {0f, 0f};
+	private float[] timer = {0f, 0f};
+	private float[] fadeTimer = {0f, 0f};
 	
 	void Start() 
 	{
@@ -27,6 +26,16 @@ public class Announcements : MonoBehaviour
 		for(int i = 0; i < texts.Length; ++i)
 		{
 			// everything to do with durations
+			if(timer[i] > 0)
+			{
+				timer[i] -= Time.deltaTime;
+				//TODO?
+			}
+			else if(fadeTimer[i] > 0)
+			{
+				fadeTimer[i] -= Time.deltaTime;
+				//TODO
+			}
 		}
 	}
 	
