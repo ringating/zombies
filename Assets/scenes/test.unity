@@ -1153,8 +1153,8 @@ MonoBehaviour:
   announcementManager: {fileID: 740467253}
   announcementName: major
   message: Hello World!
-  duration: 3
-  fadeDuration: 2
+  duration: 1
+  fadeDuration: 1
   testAnnouncement: 0
 --- !u!1 &809766848
 GameObject:
