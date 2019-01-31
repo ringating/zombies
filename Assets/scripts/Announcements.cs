@@ -3,6 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+class TextAnnouncement
+{
+	public Text text;
+	public float timer;
+	public float fadeTimer;
+	public Color color;
+
+	TextAnnouncement(Text text, float duration, float fadeDuration, Color color)
+	{
+		this.text = text;
+		this.timer = duration;
+		this.fadeTimer = fadeDuration;
+		this.color = color;
+	}
+}
+
 public class Announcements : MonoBehaviour 
 {
 	public Text majorText;
