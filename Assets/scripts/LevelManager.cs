@@ -8,9 +8,13 @@ public class LevelManager : MonoBehaviour
 	// this class handles spawning, zones, counting zombie kills
 
     public Transform player;
+    public PlayerState playerScript;
+
+    public Announcements announcementHandler;
+
     public GameObject zombiePrefab;
-	public int maxConcurrentZombies = 24;     // max zombies alive at once
-    public int totalZombies = 120;  // total zombies for the entire level (not counting the final wave)
+	public int maxConcurrentZombies = 24; // max zombies alive at once
+    public int totalZombies = 120; // total zombies for the entire level (not counting the final wave)
     public int killedZombies;
 	//[HideInInspector]
 	public List<Zombie> zombs;

@@ -2299,12 +2299,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 150761129}
+  playerScript: {fileID: 150761125}
   zombiePrefab: {fileID: 1709824328573874, guid: c342cc1336ed6dc49be414d4026d4c92,
     type: 2}
   maxConcurrentZombies: 24
   totalZombies: 120
   killedZombies: 0
   zombs: []
+  announcementHandler: {fileID: 740467253}
   spawnDelay: 0.1
   spawnZones: []
   startingZone: {fileID: 0}

@@ -28,6 +28,8 @@ public class PlayerState : MonoBehaviour
     public int closeZombieCount;
     private float speedScalar;
 
+    private bool dead = false;
+
 	void Start() 
 	{
 		// set starting values for variables
@@ -42,7 +44,7 @@ public class PlayerState : MonoBehaviour
 	{
 		// health regen
         timeSinceHit += Time.deltaTime;
-        if(timeSinceHit > healthRegenDelay && health < maxHealth)
+        if(timeSinceHit > healthRegenDelay && health < maxHealth && !dead)
         {
             health += healthRegenRate * Time.deltaTime;
             if(health > maxHealth){ health = maxHealth; }
@@ -57,6 +59,8 @@ public class PlayerState : MonoBehaviour
         {
             speedScalar = 1;
         }
+
+        if(dead){ speedScalar = 0; }
 
         // movement
         if(Input.GetButton("sprint"))
@@ -99,6 +103,16 @@ public class PlayerState : MonoBehaviour
     {
         health -= hpDamage;
         timeSinceHit = 0;
-        print("took " + hpDamage + " points of damage!");
+        //print("took " + hpDamage + " points of damage!");
+        if(health <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        dead = true;
+        LevelManager.Instance.announcementHandler.Announce("YOU DIED", "major", 60, 5);
     }
 }
