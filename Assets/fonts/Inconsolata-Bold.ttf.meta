@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0066fb00e2b07a043b6f6955dd4e6ab9
+guid: 5fee161aedba93144bff1d98f530fc89
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +8,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Consolas
+  fontName: Inconsolata
   fontNames:
-  - Consolas
+  - Inconsolata
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
