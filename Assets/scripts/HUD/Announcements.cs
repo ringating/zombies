@@ -124,4 +124,9 @@ public class Announcements : MonoBehaviour
 		if(index >= ta.Count){index = -1;}
 		return index;
 	}
+
+	public void SetColorByName(string name, Color color)
+	{
+
+	}
 }
