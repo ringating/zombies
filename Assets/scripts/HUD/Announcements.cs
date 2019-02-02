@@ -84,7 +84,7 @@ public class Announcements : MonoBehaviour
 			// everything to do with durations
 			if(ta[i].timer > 0)
 			{
-				ta[i].timer -= Time.deltaTime;
+                ta[i].timer -= Time.deltaTime;
 				ta[i].setAlpha(1);
 				if(ta[i].timer < 0)
 				{ 
@@ -94,14 +94,14 @@ public class Announcements : MonoBehaviour
 			}
 			else if(ta[i].fadeTimer > 0)
 			{
-				ta[i].fadeTimer -= Time.deltaTime;
+                ta[i].fadeTimer -= Time.deltaTime;
 				ta[i].setAlpha(Mathf.Lerp(0, 1, ta[i].fadeTimer/ta[i].fadeDuration));
 				if(ta[i].fadeTimer < 0){ ta[i].fadeTimer = 0; }
 			}
 		}
 	}
 	
-	public void Announce(string message, int announcementIndex, float duration, float fadeDuration)
+	private void Announce(string message, int announcementIndex, float duration, float fadeDuration)
 	{
 		ta[announcementIndex].setText(message).setTimer(duration).setFadeTimer(fadeDuration);
 	}

@@ -15,6 +15,7 @@ public class LevelManager : MonoBehaviour
     public GameObject zombiePrefab;
 	public int maxConcurrentZombies = 24; // max zombies alive at once
     public int totalZombies = 120; // total zombies for the entire level (not counting the final wave)
+    public float bonusWave = 24;
     public int killedZombies;
 	//[HideInInspector]
 	public List<Zombie> zombs;
@@ -26,6 +27,8 @@ public class LevelManager : MonoBehaviour
 	public SpawnZone[] spawnZones; // this might not be needed for anything
     public SpawnZone startingZone;
     public Transform[] activeSpawns;
+
+    private bool announcedHalf = false;
 
 	// allow this object to be globally accessible
 	private static LevelManager _instance;
@@ -83,6 +86,13 @@ public class LevelManager : MonoBehaviour
         {
             timeSinceLastSpawn = 0;
             SpawnZomb();
+        }
+
+        // announcements
+        if(killedZombies >= totalZombies/2 && !announcedHalf)
+        {
+            announcementHandler.Announce("half way there!", "minor", 2, 0.5f);
+            announcedHalf = true;
         }
 	}
 

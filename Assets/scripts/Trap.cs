@@ -53,10 +53,10 @@ public class Trap : MonoBehaviour
 
 	private void OnTriggerStay(Collider other)
     {
-        if(state == TrapState.on)
+        if(state == TrapState.on && other)
 		{
-			Zombie zomb = other.GetComponent<ZombieCollider>().self;
-			if(zomb){ zomb.Die(); }
+			ZombieCollider zombCol = other.GetComponent<ZombieCollider>();
+			if(zombCol){ zombCol.self.Die(); }
 		}
     }
 
