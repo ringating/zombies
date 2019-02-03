@@ -111,6 +111,11 @@ public class Announcements : MonoBehaviour
 		Announce(message, GetAnnLocIndexByName(announcementLocationName), duration, fadeDuration);
 	}
 
+    public void SetAnnouncementColor(string announcementLocationName, Color color)
+    {
+        ta[GetAnnLocIndexByName(announcementLocationName)].setColor(color);
+    }
+
 	private int GetAnnLocIndexByName(string name)
 	{
 		int index = 0;

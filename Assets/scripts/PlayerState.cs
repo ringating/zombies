@@ -138,7 +138,11 @@ public class PlayerState : MonoBehaviour
             if(stamina > staminaMax){ stamina = staminaMax; }
         }
 
-        LevelManager.Instance.announcementHandler.Announce(GetStaminaBar(10, 'w'), "stamina-debug", 1, 1);
+        LevelManager.Instance.announcementHandler.Announce(GetStaminaBar(30, "-"), "stamina-debug", 1, 1);
+        LevelManager.Instance.announcementHandler.SetAnnouncementColor("stamina-debug", new Color(0,0.53f,0,1));
+
+        LevelManager.Instance.announcementHandler.Announce(GetHealthBar(30, "-"), "health-debug", 1, 1);
+        LevelManager.Instance.announcementHandler.SetAnnouncementColor("health-debug", new Color(0.53f,0,0,1));
 	}
 
     public void Damage(float hpDamage)
@@ -156,6 +160,7 @@ public class PlayerState : MonoBehaviour
     {
         dead = true;
         LevelManager.Instance.announcementHandler.Announce("YOU DIED", "major", 60, 5);
+        LevelManager.Instance.announcementHandler.SetAnnouncementColor("major", new Color(0.8f,0,0,1));
     }
 
     public bool CanUseStamina()
@@ -184,14 +189,25 @@ public class PlayerState : MonoBehaviour
         return ret;
     }
 
-    private string GetStaminaBar(int charLength, char c)
+    private string GetStaminaBar(int unitLength, string unit)
     {
         string staminaBar = "";
-        int numChars = Mathf.CeilToInt(stamina / (staminaMax / charLength));
+        int numChars = Mathf.CeilToInt(stamina / (staminaMax / unitLength));
         for(int i = 0; i < numChars; ++i)
         {
-            staminaBar += c;
+            staminaBar += unit;
         }
         return staminaBar;
+    }
+
+    private string GetHealthBar(int unitLength, string unit)
+    {
+        string healthBar = "";
+        int numChars = Mathf.CeilToInt(health / (maxHealth / unitLength));
+        for(int i = 0; i < numChars; ++i)
+        {
+            healthBar += unit;
+        }
+        return healthBar;
     }
 }
