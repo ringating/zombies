@@ -14,6 +14,13 @@ public class Follow2D : MonoBehaviour
 	
 	void Update () 
     {
-		r.MovePosition(new Vector3(target.position.x, this.transform.position.y, target.position.z));
+		if(r)
+        {
+            r.MovePosition(new Vector3(target.position.x, this.transform.position.y, target.position.z));
+        }
+        else
+        {
+            this.transform.position = new Vector3(target.position.x, this.transform.position.y, target.position.z);
+        }
 	}
 }

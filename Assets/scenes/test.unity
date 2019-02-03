@@ -1445,6 +1445,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1263858619}
+  - component: {fileID: 1263858620}
+  - component: {fileID: 1263858621}
   - component: {fileID: 1263858618}
   - component: {fileID: 1263858617}
   m_Layer: 0
@@ -1514,6 +1516,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1263858620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1263858616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cea34f13d0ab22440ac77f8d07b68ea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 150761129}
+--- !u!114 &1263858621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1263858616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95ecdc49ceacb7e4384b17aefcfc77a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useToggle: 0
+  defaultSize: 6
+  zoomOutSize: 18
+  lerpSpeed: 10
+  sizeLeniency: 0.05
+  playerCamera: {fileID: 1263858618}
 --- !u!1 &1293327692
 GameObject:
   m_ObjectHideFlags: 0
@@ -2300,13 +2331,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 150761129}
   playerScript: {fileID: 150761125}
+  announcementHandler: {fileID: 740467253}
   zombiePrefab: {fileID: 1709824328573874, guid: c342cc1336ed6dc49be414d4026d4c92,
     type: 2}
   maxConcurrentZombies: 24
   totalZombies: 120
+  bonusWave: 24
   killedZombies: 0
   zombs: []
-  announcementHandler: {fileID: 740467253}
   spawnDelay: 0.1
   spawnZones: []
   startingZone: {fileID: 0}
