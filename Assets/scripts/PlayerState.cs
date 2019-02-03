@@ -15,6 +15,13 @@ public class PlayerState : MonoBehaviour
 	public float acceleration; // in % of walkSpeed per sec
     public float slowScalar;
 
+    public float staminaMax = 100f;
+    public float staminaRegenRate = 50f;
+    public float staminaRegenDelay = 0.25f;
+    public float staminaRunRate = 25f;
+    public float staminaCameraRate = 25f;
+    public float staminaOveruseTimeout = 1f;
+
     public AxisHandler axes;
     public Rigidbody rb;
     public NavMeshAgent nma;
@@ -24,9 +31,15 @@ public class PlayerState : MonoBehaviour
     private float timeSinceHit;
 	private Vector2 vel;
     private Vector2 targetVel;
-    //[HideInInspector]
+    [HideInInspector]
     public int closeZombieCount;
     private float speedScalar;
+    private bool sprintHeld;
+    private float stamina;
+    [HideInInspector]
+    public bool zoomedOut;
+    private float staminaTimeSinceLastUsed;
+    private bool staminaOverused;
 
     private bool dead = false;
 
@@ -42,13 +55,17 @@ public class PlayerState : MonoBehaviour
 	
 	void Update()
 	{
-		// health regen
+		sprintHeld = Input.GetButton("sprint");
         timeSinceHit += Time.deltaTime;
+        staminaTimeSinceLastUsed += Time.deltaTime;
+        
+        // health regen
         if(timeSinceHit > healthRegenDelay && health < maxHealth && !dead)
         {
             health += healthRegenRate * Time.deltaTime;
             if(health > maxHealth){ health = maxHealth; }
         }
+
 
         // set speed multiplier
         if(closeZombieCount > 0)
@@ -62,8 +79,9 @@ public class PlayerState : MonoBehaviour
 
         if(dead){ speedScalar = 0; }
 
+
         // movement
-        if(Input.GetButton("sprint"))
+        if(sprintHeld && CanUseStamina())
         {
             targetVel = axes.leftAxis * runSpeed * speedScalar;
         }
@@ -94,9 +112,33 @@ public class PlayerState : MonoBehaviour
             if(vel.y > targetVel.y){ vel.Set(vel.x, targetVel.y); }
         }
 
-        //rb.position += new Vector3(vel.x * Time.deltaTime, 0, vel.y * Time.deltaTime);
         nma.velocity = new Vector3(vel.x, 0, vel.y);
-        //rb.velocity = new Vector3(vel.x, 0, vel.y);
+
+
+        // stamina
+        if(CanUseStamina())
+        {
+            if(sprintHeld)
+            {
+                stamina -= staminaRunRate * Time.deltaTime;
+                staminaTimeSinceLastUsed = 0f;
+            }
+
+            if(zoomedOut)
+            {
+                stamina -= staminaCameraRate * Time.deltaTime;
+                staminaTimeSinceLastUsed = 0f;
+            }
+        }
+
+        if(staminaTimeSinceLastUsed > staminaRegenDelay && stamina < staminaMax)
+        {
+            // regen stamina
+            stamina += staminaRegenRate * Time.deltaTime;
+            if(stamina > staminaMax){ stamina = staminaMax; }
+        }
+
+        LevelManager.Instance.announcementHandler.Announce(GetStaminaBar(10, 'w'), "stamina-debug", 1, 1);
 	}
 
     public void Damage(float hpDamage)
@@ -114,5 +156,42 @@ public class PlayerState : MonoBehaviour
     {
         dead = true;
         LevelManager.Instance.announcementHandler.Announce("YOU DIED", "major", 60, 5);
+    }
+
+    public bool CanUseStamina()
+    {
+        // can use stamina when it's greater than 0 and not locked out from overuse
+        bool ret;
+
+        if(stamina < 0)
+        {
+            staminaOverused = true;
+            ret = false;
+        }
+        else
+        {
+            if(!staminaOverused || staminaTimeSinceLastUsed > staminaOveruseTimeout)
+            {
+                staminaOverused = false;
+                ret = true;
+            }
+            else
+            {
+                ret = false;
+            }
+        }
+
+        return ret;
+    }
+
+    private string GetStaminaBar(int charLength, char c)
+    {
+        string staminaBar = "";
+        int numChars = Mathf.CeilToInt(stamina / (staminaMax / charLength));
+        for(int i = 0; i < numChars; ++i)
+        {
+            staminaBar += c;
+        }
+        return staminaBar;
     }
 }

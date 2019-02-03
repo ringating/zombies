@@ -10,6 +10,7 @@ public class CameraZoom : MonoBehaviour
     public float lerpSpeed = 10f;
     public float sizeLeniency = 0.05f;
     public Camera playerCamera;
+    public PlayerState player;
 
     private bool zoomedOut = false;
     private float targetSize;
@@ -43,6 +44,11 @@ public class CameraZoom : MonoBehaviour
             }
         }
 
+        if(!player.CanUseStamina())
+        {
+            zoomedOut = false;
+        }
+
         if(zoomedOut)
         {
             targetSize = zoomOutSize;
@@ -52,6 +58,7 @@ public class CameraZoom : MonoBehaviour
             targetSize = defaultSize;
         }
 
+        player.zoomedOut = zoomedOut;
         AdjustZoom(Time.deltaTime);
 	}
 
