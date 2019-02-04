@@ -91,8 +91,12 @@ public class LevelManager : MonoBehaviour
         // announcements
         if(killedZombies >= totalZombies/2 && !announcedHalf)
         {
-            announcementHandler.Announce("half way there!", "minor", 2, 0.5f);
+            announcementHandler.Announce("HALFWAY", "minor", 2f, 0.5f);
             announcedHalf = true;
+        }
+        if(killedZombies >= totalZombies)
+        {
+            announcementHandler.Announce("SUCCESS", "major", 1f, 0f);
         }
 	}
 
