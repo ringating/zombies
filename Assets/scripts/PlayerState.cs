@@ -48,6 +48,7 @@ public class PlayerState : MonoBehaviour
 		// set starting values for variables
         timeSinceHit = healthRegenDelay;
 		health = maxHealth;
+        stamina = staminaMax;
 		vel = Vector2.zero;
         closeZombieCount = 0;
         speedScalar = 1;
@@ -161,6 +162,7 @@ public class PlayerState : MonoBehaviour
         dead = true;
         LevelManager.Instance.announcementHandler.Announce("YOU DIED", "major", 60, 5);
         LevelManager.Instance.announcementHandler.SetAnnouncementColor("major", new Color(0.8f,0,0,1));
+        LevelManager.Instance.announcementHandler.Announce("press select/back/p to restart", "minor", 99999, 60);
     }
 
     public bool CanUseStamina()

@@ -2830,6 +2830,7 @@ GameObject:
   - component: {fileID: 2102670820}
   - component: {fileID: 2102670819}
   - component: {fileID: 2102670821}
+  - component: {fileID: 2102670822}
   m_Layer: 0
   m_Name: level manager
   m_TagString: Untagged
@@ -2892,3 +2893,15 @@ MonoBehaviour:
   rightAxis: {x: 0, y: 0}
   kbmOrigin: {fileID: 150761129}
   kbmMouse: {fileID: 1540223999}
+--- !u!114 &2102670822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2102670818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b1d4c774d307734b8f4e4fc416eecb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonName: restart
