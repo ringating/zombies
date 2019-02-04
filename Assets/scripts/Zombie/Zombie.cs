@@ -139,4 +139,9 @@ public class Zombie : MonoBehaviour
         Destroy(physicalCollider);
         Destroy(this.gameObject);
     }
+
+    public float GetHitTimePercent()
+    {
+        return Mathf.Min(1f, Mathf.Max(0f, hitTimer/timeToHit));
+    }
 }
