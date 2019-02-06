@@ -66,13 +66,13 @@ public class LevelManager : MonoBehaviour
 	void Update()
 	{
 		// debug "kill all zombies" key
-        if(Input.GetKeyDown("space"))
-        {
-            while(zombs.Count > 0)
-            {
-                zombs[0].Die();
-            }
-        }
+        // if(Input.GetKeyDown("space"))
+        // {
+        //     while(zombs.Count > 0)
+        //     {
+        //         zombs[0].Die();
+        //     }
+        // }
 
         // update each zombie's destination
         foreach(Zombie z in zombs)
