@@ -29,6 +29,8 @@ public class LevelManager : MonoBehaviour
     public Transform[] activeSpawns;
 
     private bool announcedHalf = false;
+    private float completionTime = -1f;
+    private float timer = 0f;
 
 	// allow this object to be globally accessible
 	private static LevelManager _instance;
@@ -75,6 +77,9 @@ public class LevelManager : MonoBehaviour
         // }
 
         // update each zombie's destination
+
+        timer += Time.deltaTime;
+
         foreach(Zombie z in zombs)
         {
             z.nma.destination = player.position;
@@ -96,7 +101,9 @@ public class LevelManager : MonoBehaviour
         }
         if(killedZombies >= totalZombies)
         {
+            if(completionTime < 0){ completionTime = timer;}
             announcementHandler.Announce("SUCCESS", "major", 1f, 0f);
+            announcementHandler.Announce("completion time: " + Mathf.FloorToInt(completionTime / 60) + ":" + Math.Round(completionTime % 60, 1), "minor", 1f, 0f);
         }
 	}
 
