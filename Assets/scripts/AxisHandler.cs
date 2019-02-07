@@ -12,6 +12,7 @@ public class AxisHandler : MonoBehaviour
 
     public Transform kbmOrigin;
     public Transform kbmMouse;
+	public bool mouseWalk;
 
 	void Update()
 	{
@@ -40,11 +41,19 @@ public class AxisHandler : MonoBehaviour
 		rightAxis = rightAxis.normalized * Tools.Map(rightAxis.magnitude, deadZoneInner, deadZoneOuter, 0, 1);
 
         // mouse and keyboard overwrite
-        if(Input.GetButton("kbWalk"))
+        if(Input.GetButton("kbWalkUp") || Input.GetButton("kbWalkDown") || Input.GetButton("kbWalkRight") || Input.GetButton("kbWalkLeft"))
         {
-            Vector3 temp = (kbmMouse.position - kbmOrigin.position);
-            leftAxis = new Vector2(temp.x, temp.z);
-			leftAxis.Normalize();
+            if(mouseWalk)
+			{
+				Vector3 temp = (kbmMouse.position - kbmOrigin.position);
+				leftAxis = new Vector2(temp.x, temp.z);
+				leftAxis.Normalize();
+			}
+			else
+			{
+				// wasd movement
+			}
+			
         }
 	}
 }
