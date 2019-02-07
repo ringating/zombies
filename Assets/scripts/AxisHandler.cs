@@ -52,6 +52,14 @@ public class AxisHandler : MonoBehaviour
 			else
 			{
 				// wasd movement
+				leftAxis = Vector2.zero;
+
+				if(Input.GetButton("kbWalkUp")){ leftAxis += Vector2.up; }
+				if(Input.GetButton("kbWalkDown")){ leftAxis += Vector2.down; }
+				if(Input.GetButton("kbWalkRight")){ leftAxis += Vector2.right; }
+				if(Input.GetButton("kbWalkLeft")){ leftAxis += Vector2.left; }
+				
+				leftAxis.Normalize();
 			}
 			
         }
